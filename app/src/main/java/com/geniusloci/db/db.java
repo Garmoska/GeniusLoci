@@ -1,2 +1,4 @@
-package com.geniusloci.db;public class db {
+package com.geniusloci.db;
+
+public class db {
 }
