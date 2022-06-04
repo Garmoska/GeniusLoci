@@ -1,43 +1,45 @@
 package com.geniusloci;
 
+import static org.junit.Assert.assertTrue;
+
+import com.geniusloci.db.Place;
+import com.geniusloci.db.PlacesFactory;
 import com.opencsv.CSVReader;
 
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class DatabaseTest {
-	public String getAssetsFolder() {
-		return assetsFolder;
-	}
-
-	private final String assetsFolder;
+	private final OurConstants ourConstants;
+	private final String placesFullpath;
 
 	public DatabaseTest(){
-		//TODO add here full path in your file system
-		final String path1 = "c:\\Leonov\\GeniusLoci\\app\\src\\main\\assets\\database\\places.csv";
-		final String path2 = "";
-		if (Files.exists(Paths.get(path1)))
-			assetsFolder = path1;
-		else
-			assetsFolder = path2;
+		ourConstants = new OurConstants();
+		placesFullpath = String.valueOf(Paths.get(ourConstants.getAssetsFolder(), "places.csv"));
 	}
 
 	@Test
 	public void readDatabase() throws IOException {
 		String[] nextLine;
-		CSVReader reader = new CSVReader(new FileReader(getAssetsFolder()));
+		CSVReader reader = new CSVReader(new FileReader(placesFullpath));
 		while ((nextLine = reader.readNext()) != null) {
-			// nextLine[] is an array of values from the line
 			System.out.println(nextLine[0] + nextLine[1] + "etc...");
-			System.out.println(nextLine[0] + nextLine[1] + "etc...");
+		}
+	}
+
+	@Test
+	public void readDatabaseWithFactory() throws IOException {
+		CSVReader reader = new CSVReader(new FileReader(placesFullpath));
+		final List<Place> places = PlacesFactory.readFromCsv(reader);
+		assertTrue(places.size() > 0);
+		for(Place place : places){
+			assertTrue(place.getId() > 0);
+			assertTrue(place.getNames().size() > 0);
+			assertTrue(place.getAbstracts().size() > 0);
 		}
 	}
 }

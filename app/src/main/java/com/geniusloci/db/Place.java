@@ -12,18 +12,18 @@ public final class Place {
 	@NonNull
 	@PrimaryKey
 	@ColumnInfo(name = "id")
-	private final int id;
+	private int id;
 
 	@NonNull
 	@ColumnInfo(name = "latitude")
-	private final float latitude;
+	private float latitude;
 
 	@NonNull
 	@ColumnInfo(name = "longitude")
-	private final float longitude;
+	private float longitude;
 
 	@ColumnInfo(name = "address")
-	private final String address;
+	private String address;
 
 	@NonNull
 	@ColumnInfo(name = "name")
@@ -36,6 +36,10 @@ public final class Place {
 	@NonNull
 	@ColumnInfo(name = "description")
 	private HashMap<String, String> descriptions;
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;
@@ -84,16 +88,33 @@ public final class Place {
 		return keyWords;
 	}
 
+	public void setKeyWords(String keyWords) {
+		this.keyWords = keyWords;
+	}
+
 	@ColumnInfo(name = "keyWords")
-	private final String keyWords;
+	private String keyWords;
 
 	public Place(){
 		names = new HashMap<>();
 		abstracts = new HashMap<>();
+		descriptions = new HashMap<>();
 		id = 0;
 		latitude = 0;
 		longitude = 0;
 		address = "";
 		keyWords = "";
+	}
+
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }
