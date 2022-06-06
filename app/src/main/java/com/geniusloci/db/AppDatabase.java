@@ -9,11 +9,13 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.geniusloci.Constants;
+import com.geniusloci.db.dao.PlaceDao;
 import com.geniusloci.db.entities.Place;
 
 @Database(entities = {Place.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 	private static volatile AppDatabase instance;
+	public abstract PlaceDao placeDao();
 
 	public static AppDatabase getInstance(Context context) {
 		if (instance == null) {

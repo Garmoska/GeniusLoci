@@ -17,4 +17,7 @@ public interface PlaceDao {
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	void insertAll(List<Place> places);
+
+	@Query("SELECT COUNT(id) FROM places")
+	int getPlacesCount();
 }

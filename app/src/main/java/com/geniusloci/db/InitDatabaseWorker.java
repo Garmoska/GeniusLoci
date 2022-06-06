@@ -33,8 +33,7 @@ public class InitDatabaseWorker extends Worker {
 			final List<Place> places = PlacesFactory.readFromCsv(reader);
 			reader.close();
 			AppDatabase database = AppDatabase.getInstance(getApplicationContext());
-			//database.getPlantDao().insertAll(plantList);
-
+			database.placeDao().insertAll(places);
 			return Result.success();
 		} catch (IOException e) {
 			Log.e(TAG, "Error seeding database", e);
