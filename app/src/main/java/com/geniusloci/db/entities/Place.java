@@ -1,4 +1,4 @@
-package com.geniusloci.db;
+package com.geniusloci.db.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -27,15 +27,15 @@ public final class Place {
 
 	@NonNull
 	@ColumnInfo(name = "name")
-	private HashMap<String, String> names;
+	private String names;
 
 	@NonNull
 	@ColumnInfo(name = "abstract")
-	private HashMap<String, String> abstracts;
+	private String abstracts;
 
 	@NonNull
 	@ColumnInfo(name = "description")
-	private HashMap<String, String> descriptions;
+	private String descriptions;
 
 	public void setId(int id) {
 		this.id = id;
@@ -57,33 +57,6 @@ public final class Place {
 		return address;
 	}
 
-	@NonNull
-	public HashMap<String, String> getNames() {
-		return names;
-	}
-
-	public void setNames(@NonNull HashMap<String, String> names) {
-		this.names = names;
-	}
-
-	@NonNull
-	public HashMap<String, String> getAbstracts() {
-		return abstracts;
-	}
-
-	public void setAbstracts(@NonNull HashMap<String, String> abstracts) {
-		this.abstracts = abstracts;
-	}
-
-	@NonNull
-	public HashMap<String, String> getDescriptions() {
-		return descriptions;
-	}
-
-	public void setDescriptions(@NonNull HashMap<String, String> descriptions) {
-		this.descriptions = descriptions;
-	}
-
 	public String getKeyWords() {
 		return keyWords;
 	}
@@ -95,10 +68,10 @@ public final class Place {
 	@ColumnInfo(name = "keyWords")
 	private String keyWords;
 
-	public Place(){
-		names = new HashMap<>();
-		abstracts = new HashMap<>();
-		descriptions = new HashMap<>();
+	public Place() {
+		names = "";
+		abstracts = "";
+		descriptions = "";
 		id = 0;
 		latitude = 0;
 		longitude = 0;
@@ -116,5 +89,53 @@ public final class Place {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	//TODO find a better way how to do not expose the two methods
+	public static String getCombinedString(HashMap<String, String> dict) {
+		if (dict == null) return "";
+		StringBuilder sb = new StringBuilder();
+		for (String key : dict.keySet()) {
+			sb.append(key).append("#").append(dict.get(key)).append("##");
+		}
+		return sb.toString();
+	}
+
+	public static HashMap<String, String> parseCombinedString(String combStr) {
+		HashMap<String, String> result = new HashMap<>();
+		String[] items = combStr.split("##");
+		for (String item : items) {
+			String[] tokens = item.split("#");
+			if (tokens.length != 2) continue;
+			result.put(tokens[0], tokens[1]);
+		}
+		return result;
+	}
+
+	@NonNull
+	public String getNames() {
+		return names;
+	}
+
+	public void setNames(@NonNull String names) {
+		this.names = names;
+	}
+
+	@NonNull
+	public String getAbstracts() {
+		return abstracts;
+	}
+
+	public void setAbstracts(@NonNull String abstracts) {
+		this.abstracts = abstracts;
+	}
+
+	@NonNull
+	public String getDescriptions() {
+		return descriptions;
+	}
+
+	public void setDescriptions(@NonNull String descriptions) {
+		this.descriptions = descriptions;
 	}
 }

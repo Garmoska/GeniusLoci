@@ -1,4 +1,4 @@
-package com.geniusloci.db;
+package com.geniusloci.db.entities;
 
 import com.opencsv.CSVReader;
 
@@ -24,6 +24,9 @@ public abstract class PlacesFactory {
 		String[] nextLine;
 		int rownum = 0;
 		List<String> captions = new ArrayList<>();
+		HashMap<String, String> namesDict = new HashMap<>();
+		HashMap<String, String> abstDict = new HashMap<>();
+		HashMap<String, String> descDict = new HashMap<>();
 		while ((nextLine = reader.readNext()) != null) {
 			if (rownum == 0) {
 				for (String s : nextLine) {
@@ -47,12 +50,15 @@ public abstract class PlacesFactory {
 						place.setKeyWords(cellValue);
 					}
 					if (colName.startsWith(COLUMN_NAME))
-						addDictValue(colName, place.getNames(), cellValue);
+						addDictValue(colName, namesDict, cellValue);
 					else if (colName.startsWith(COLUMN_ABSTRACT))
-						addDictValue(colName, place.getAbstracts(), cellValue);
+						addDictValue(colName, abstDict, cellValue);
 					else if (colName.startsWith(COLUMN_DESCRIPTION))
-						addDictValue(colName, place.getDescriptions(), cellValue);
+						addDictValue(colName, descDict, cellValue);
 				}
+				place.setNames(Place.getCombinedString(namesDict));
+				place.setAbstracts(Place.getCombinedString(abstDict));
+				place.setDescriptions(Place.getCombinedString(descDict));
 				places.add(place);
 			}
 		}

@@ -39,11 +39,10 @@ public class DatabaseProcessing {
 		final AssetManager assets = getAppContext().getAssets();
 
 		String[] nextLine;
-		try (final InputStream inputStream = assets.open("database/places.csv")) {
+		try (final InputStream inputStream = assets.open("database/" + Constants.PLACES_DATA_FILENAME)) {
 			CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
 			while ((nextLine = reader.readNext()) != null) {
 				// nextLine[] is an array of values from the line
-				System.out.println(nextLine[0] + nextLine[1] + "etc...");
 				System.out.println(nextLine[0] + nextLine[1] + "etc...");
 			}
 		}
