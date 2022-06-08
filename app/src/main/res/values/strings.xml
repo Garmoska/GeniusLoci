@@ -1,3 +1,4 @@
 <resources>
-	<string name="app_name">GeniusLoci</string>
+    <string name="app_name">GeniusLoci</string>
+    <string name="debug_places_count">Places count: %1$s</string>
 </resources>
