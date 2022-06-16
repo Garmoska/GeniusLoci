@@ -3,4 +3,5 @@
     <string name="debug_places_count">Places count: %1$s</string>
     <string name="hello_places_list_fragment">This is places list fragment</string>
     <string name="hello_place_card_fragment">This is place card fragment</string>
+    <string name="refresh_button">Refresh</string>
 </resources>
