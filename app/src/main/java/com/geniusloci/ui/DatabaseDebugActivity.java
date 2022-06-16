@@ -1,4 +1,4 @@
-package com.geniusloci.activities;
+package com.geniusloci.ui;
 
 import android.os.Bundle;
 import android.util.Log;

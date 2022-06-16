@@ -15,10 +15,10 @@
         android:theme="@style/Theme.GeniusLoci"
         tools:targetApi="31">
         <activity
-            android:name=".activities.DatabaseDebugActivity"
+            android:name=".ui.DatabaseDebugActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
