@@ -1,7 +1,11 @@
 <resources>
-    <string name="app_name">GeniusLoci</string>
-    <string name="debug_places_count">Places count: %1$s</string>
-    <string name="hello_places_list_fragment">This is places list fragment</string>
-    <string name="hello_place_card_fragment">This is place card fragment</string>
-    <string name="refresh_button">Refresh</string>
+	<string name="app_name">GeniusLoci</string>
+	<string name="debug_places_count">Places count: %1$s</string>
+	<string name="hello_places_list_fragment">This is places list fragment</string>
+	<string name="hello_place_card_fragment">This is place card fragment</string>
+	<string name="refresh_button">Refresh</string>
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="places_list_content_description">List of Places</string>
+	<string name="placeholder_string">This is a long string</string>
 </resources>

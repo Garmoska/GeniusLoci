@@ -11,11 +11,10 @@ import com.geniusloci.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PlaceCardFragment#newInstance} factory method to
+ * Use the {@link PlacesListCardViewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlaceCardFragment extends Fragment {
-	private static final String PLACE_ID = "place_id";
+public class PlacesListCardViewFragment extends Fragment {
 
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +25,7 @@ public class PlaceCardFragment extends Fragment {
 	private String mParam1;
 	private String mParam2;
 
-	public PlaceCardFragment() {
+	public PlacesListCardViewFragment() {
 		// Required empty public constructor
 	}
 
@@ -36,11 +35,11 @@ public class PlaceCardFragment extends Fragment {
 	 *
 	 * @param param1 Parameter 1.
 	 * @param param2 Parameter 2.
-	 * @return A new instance of fragment PlaceCardFragment.
+	 * @return A new instance of fragment PlacesListFragment.
 	 */
 	// TODO: Rename and change types and number of parameters
-	public static PlaceCardFragment newInstance(String param1, String param2) {
-		PlaceCardFragment fragment = new PlaceCardFragment();
+	public static PlacesListCardViewFragment newInstance(String param1, String param2) {
+		PlacesListCardViewFragment fragment = new PlacesListCardViewFragment();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);
 		args.putString(ARG_PARAM2, param2);
@@ -61,14 +60,8 @@ public class PlaceCardFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_place_card, container, false);
+		return inflater.inflate(R.layout.fragment_places_list_card_view, container, false);
 	}
 
-	public static PlaceCardFragment forPlace(int placeId) {
-		PlaceCardFragment fragment = new PlaceCardFragment();
-		Bundle args = new Bundle();
-		args.putInt(PLACE_ID, placeId);
-		fragment.setArguments(args);
-		return fragment;
-	}
+
 }

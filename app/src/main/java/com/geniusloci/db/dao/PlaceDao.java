@@ -23,5 +23,9 @@ public interface PlaceDao {
 
 	//TODO set the real request
 	@Query("SELECT * FROM places where latitude=:latitude and longitude=:longitude")
-	LiveData<List<Place>> loadByCoordinates(float latitude, float longitude);
+	List<Place> loadByCoordinates(float latitude, float longitude);
+	//LiveData<List<Place>> loadByCoordinates(float latitude, float longitude);
+
+	@Query("SELECT * FROM places")
+	List<Place> loadAllPlaces();
 }

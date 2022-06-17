@@ -13,23 +13,19 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//for testing purposes
-		//Intent intent = new Intent(this, DatabaseDebugActivity.class);
-		//startActivity(intent);
-		if (savedInstanceState == null) {showPlacesList();}
+		//if (savedInstanceState == null) {showPlacesList();}
 	}
 
 	public void showPlacesList() {
-		PlacesListFragment fragment = new PlacesListFragment();
+		PlacesListVerticalFragment fragment = new PlacesListVerticalFragment();
 		getSupportFragmentManager()
 				.beginTransaction()
-				//.addToBackStack("product") //TODO what is this?
 				.replace(R.id.fragment_container,
 						fragment, null).commit();
 	}
 
 	public void showPlaceCard(Place place) {
-		PlaceCardFragment placeFragment = PlaceCardFragment.forPlace(place.getId());
+		PlaceCardInfoFragment placeFragment = PlaceCardInfoFragment.forPlace(place.getId());
 		getSupportFragmentManager()
 				.beginTransaction()
 				//.addToBackStack("product") //TODO what is this?

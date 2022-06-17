@@ -30,9 +30,10 @@ public class PlacesListViewModel extends AndroidViewModel {
 				savedStateHandle.getLiveData("QUERY", null), //TODO is this stub?
 				(Function<Coords, LiveData<List<Place>>>) coords -> {
 					if (coords.isEmpty()) {
-						return mRepository.loadPlacesEmptyList();
+						//return mRepository.loadPlacesEmptyList();
 					}
-					return mRepository.loadPlacesByCoordinates(coords);
+					//return mRepository.loadPlacesByCoordinates(coords);
+					return null;
 				});
 	}
 

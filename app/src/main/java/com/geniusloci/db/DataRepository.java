@@ -42,11 +42,17 @@ public class DataRepository {
 		return mObservablePlaces;
 	}
 
-	public LiveData<List<Place>> loadPlacesByCoordinates(Coords coords){
+	//LiveData<List<Place>>
+	public List<Place> loadPlacesByCoordinates(Coords coords){
 		return mDatabase.placeDao().loadByCoordinates(coords.latitude, coords.longitude);
 	}
 
-	public LiveData<List<Place>> loadPlacesEmptyList(){
+	//LiveData<List<Place>>
+	public List<Place> loadPlacesEmptyList(){
 		return loadPlacesByCoordinates(new Coords()); //TODO find a better way
+	}
+
+	public List<Place> loadAllPlaces(){
+		return mDatabase.placeDao().loadAllPlaces();
 	}
 }

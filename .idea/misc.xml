@@ -5,8 +5,14 @@
       <map>
         <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/drawable-v24/rewind_blue_24dp.xml" value="0.1" />
         <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/layout/activity_database_debug.xml" value="0.55" />
+        <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
         <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/layout/fragment_place_card.xml" value="0.17978113600833767" />
         <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/layout/fragment_places_list.xml" value="0.17978113600833767" />
+        <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/layout/fragment_places_list_card_view.xml" value="0.22388059701492538" />
+        <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/layout/fragment_places_list_vertical.xml" value="0.17978113600833767" />
+        <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/layout/place_list_item.xml" value="0.4912" />
+        <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/layout/place_list_item1.xml" value="0.19469525959367945" />
+        <entry key="..\:/Leonov/GeniusLoci/app/src/main/res/menu/navigation_main_activity.xml" value="0.4636627906976744" />
       </map>
     </option>
   </component>
