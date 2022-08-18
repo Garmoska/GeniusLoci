@@ -76,4 +76,8 @@ public class PlacesListVerticalFragment extends Fragment {
 		rv.setAdapter(adapter);
 		return rootView;
 	}
+
+	private MainActivity getMainActivity(){
+		return (MainActivity)getActivity();
+	}
 }
