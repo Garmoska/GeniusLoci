@@ -13,11 +13,9 @@ import com.geniusloci.Constants;
 import com.geniusloci.db.dao.PlaceDao;
 import com.geniusloci.db.entities.Place;
 import com.geniusloci.db.entities.PlacesFactory;
-import com.opencsv.CSVReader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 @Database(entities = {Place.class}, version = 1)
@@ -61,9 +59,10 @@ public abstract class AppDatabase extends RoomDatabase {
 
 	private static void fillDatabase(Context context, AppDatabase db) throws IOException {
 		final InputStream placesFullpath = context.getAssets().open( "database/" + Constants.PLACES_DATA_FILENAME);
-		CSVReader reader = new CSVReader(new InputStreamReader(placesFullpath));
-		final List<Place> places = PlacesFactory.readFromCsv(reader);
-		reader.close();
+		// CSVReader reader = new CSVReader(new InputStreamReader(placesFullpath));
+		//final List<Place> places = PlacesFactory.readFromCsv(reader);
+		final List<Place> places = PlacesFactory.readFromCsv(placesFullpath);
+		//reader.close();
 		db.placeDao().insertAll(places);
 	}
 }

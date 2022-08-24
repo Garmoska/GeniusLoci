@@ -1,8 +1,10 @@
 package com.geniusloci.db.entities;
 
+import com.geniusloci.helpers.CSVHelper;
 import com.opencsv.CSVReader;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,52 @@ public abstract class PlacesFactory {
 	private static final String COLUMN_KEYWORDS = "KEYWORDS";
 	private static final String COL_NAME_DELIMITER = "_";
 
+	public static List<Place> readFromCsv(InputStream stream) throws IOException {
+		List<Place> places = new ArrayList<>();
+		int rownum = 0;
+		List<String> captions = new ArrayList<>();
+		HashMap<String, String> namesDict = new HashMap<>();
+		HashMap<String, String> abstDict = new HashMap<>();
+		HashMap<String, String> descDict = new HashMap<>();
+		final List<List<String>> data = CSVHelper.readDataFile(stream);
+		for (List<String> row : data) {
+			if (rownum == 0) {
+				for (String s : row) {
+					captions.add(s.toUpperCase(Locale.ROOT).trim());
+				}
+				rownum++;
+			} else {
+				Place place = new Place();
+				for (int column = 0; column < captions.size(); column++) {
+					final String colName = captions.get(column);
+					final String cellValue = clearValue(row.get(column));
+					if (COLUMN_ID.equalsIgnoreCase(colName)) {
+						place.setId(Integer.parseInt(cellValue));
+					} else if (COLUMN_LATITUDE.equals(colName)) {
+						place.setLatitude(Float.parseFloat(cellValue));
+					} else if (COLUMN_LONGITUDE.equals(colName)) {
+						place.setLongitude(Float.parseFloat(cellValue));
+					} else if (COLUMN_ADDRESS.equals(colName)) {
+						place.setAddress(cellValue);
+					} else if (COLUMN_KEYWORDS.equals(colName)) {
+						place.setKeyWords(cellValue);
+					}
+					if (colName.startsWith(COLUMN_NAME))
+						addDictValue(colName, namesDict, cellValue);
+					else if (colName.startsWith(COLUMN_ABSTRACT))
+						addDictValue(colName, abstDict, cellValue);
+					else if (colName.startsWith(COLUMN_DESCRIPTION))
+						addDictValue(colName, descDict, cellValue);
+				}
+				place.setNames(Place.getCombinedString(namesDict));
+				place.setAbstracts(Place.getCombinedString(abstDict));
+				place.setDescriptions(Place.getCombinedString(descDict));
+				places.add(place);
+			}
+		}
+		return places;
+	}
+
 	public static List<Place> readFromCsv(CSVReader reader) throws IOException {
 		List<Place> places = new ArrayList<>();
 		String[] nextLine;
@@ -28,6 +76,8 @@ public abstract class PlacesFactory {
 		HashMap<String, String> abstDict = new HashMap<>();
 		HashMap<String, String> descDict = new HashMap<>();
 		while ((nextLine = reader.readNext()) != null) {
+			if (nextLine.length < 2) continue;
+			//if (nextLine.length == 0 || (captions.size() > 0 && nextLine.length != captions.size())) continue;
 			if (rownum == 0) {
 				for (String s : nextLine) {
 					captions.add(s.toUpperCase(Locale.ROOT).trim());
@@ -37,7 +87,7 @@ public abstract class PlacesFactory {
 				Place place = new Place();
 				for (int column = 0; column < captions.size(); column++) {
 					final String colName = captions.get(column);
-					final String cellValue = nextLine[column];
+					final String cellValue = clearValue(nextLine[column]);
 					if (COLUMN_ID.equalsIgnoreCase(colName)) {
 						place.setId(Integer.parseInt(cellValue));
 					} else if (COLUMN_LATITUDE.equals(colName)) {
@@ -64,6 +114,10 @@ public abstract class PlacesFactory {
 		}
 
 		return places;
+	}
+
+	private static String clearValue(String v){
+		return v.replace("'", "");
 	}
 
 	private static void addDictValue(String colName, HashMap<String, String> dict, String value) {

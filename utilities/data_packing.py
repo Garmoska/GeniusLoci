@@ -3,19 +3,19 @@ import csv
 import glob
 import os
 from io import BytesIO
-
+import shutil
 from PIL import Image
-
 from func import get_image_mask, get_image_type
 
 image_folder_output = "c:\\Leonov\\GeniusLociData\\GL_resized\\"
 data_folder = "c:\\Leonov\\GeniusLociData\\"
+assets_folder = "c:\\Leonov\\GeniusLoci\\app\\src\\main\\assets\\database\\"
 data_file = os.path.join(data_folder, "Genius_Loci_DB.csv")
 output_text_file = os.path.join(data_folder, "places.csv")
 output_images_file = os.path.join(data_folder, "images.csv")
 
 captions = {}
-exclude_columns = ["PICS"]
+exclude_columns = ["PICS", "ADDRESS_EN"]
 output_text_content = []
 output_image_content = []
 
@@ -63,7 +63,9 @@ with open(data_file, encoding='utf-8') as f:
 
         numRow = numRow + 1
 
-
+output_text_content.insert(0, "ID,LATITUDE,LONGITUDE,ADDRESS,NAME_CZ,NAME_EN,NAME_RU,NAME_UA,ABSTRACT_CZ,ABSTRACT_EN,"
+                              "ABSTRACT_RU,ABSTRACT_UA,DESCRIPTION_CZ,DESCRIPTION_EN,DESCRIPTION_RU,DESCRIPTION_UA,"
+                              "KEY WORDS")
 with open(output_text_file, 'w', encoding='utf-8') as f:
     for s in output_text_content:
         f.write(s)
@@ -75,3 +77,8 @@ with open(output_images_file, 'w', encoding='utf-8') as f:
         f.write(s)
         f.write("\r\n")
 print(f"{output_images_file} saved")
+
+shutil.copy2(os.path.join(data_folder, "places.csv"), os.path.join(assets_folder, "places.csv"))
+shutil.copy2(os.path.join(data_folder, "images.csv"), os.path.join(assets_folder, "images.csv"))
+print(f"Files copied to {assets_folder}")
+
