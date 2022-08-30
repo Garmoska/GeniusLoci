@@ -59,10 +59,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
 	private static void fillDatabase(Context context, AppDatabase db) throws IOException {
 		final InputStream placesFullpath = context.getAssets().open( "database/" + Constants.PLACES_DATA_FILENAME);
-		// CSVReader reader = new CSVReader(new InputStreamReader(placesFullpath));
-		//final List<Place> places = PlacesFactory.readFromCsv(reader);
-		final List<Place> places = PlacesFactory.readFromCsv(placesFullpath);
-		//reader.close();
+		final InputStream imagesFullpath = context.getAssets().open( "database/" + Constants.PLACES_IMAGE_FILENAME);
+		final List<Place> places = PlacesFactory.readFromCsv(placesFullpath, imagesFullpath);
 		db.placeDao().insertAll(places);
 	}
 }

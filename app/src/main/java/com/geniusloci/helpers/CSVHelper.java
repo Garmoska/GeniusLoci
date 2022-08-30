@@ -30,7 +30,9 @@ public class CSVHelper {
 				int colNum = 0;
 				for (String t : tokens) {
 					if (colNum >= captionsCount) break;
-					dt.add(t.replace("'", ""));
+					//if (t.startsWith("'")) t = t.substring(1);
+					//if (t.endsWith("'")) t = t.substring(0, t.length() - 2);
+					dt.add(t);
 					colNum++;
 				}
 			}

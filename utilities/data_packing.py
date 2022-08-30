@@ -58,7 +58,7 @@ with open(data_file, encoding='utf-8') as f:
                         image = Image.open(os.path.join(image_folder_output, img_f))
                         image.save(buffered, format="JPEG")
                         img_str = base64.b64encode(buffered.getvalue())
-                        image_str_out = f"'{id_pic}','{img_type}','{os.path.basename(img_f)}',{img_str}"
+                        image_str_out = f"'{id_pic}','{img_type}','{os.path.basename(img_f)}','{img_str}'"
                         output_image_content.append(image_str_out)
 
         numRow = numRow + 1

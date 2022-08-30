@@ -1,6 +1,9 @@
 package com.geniusloci.db.entities;
 
+import android.util.Base64;
+
 import com.geniusloci.helpers.CSVHelper;
+import com.geniusloci.helpers.StringHelper;
 import com.opencsv.CSVReader;
 
 import java.io.IOException;
@@ -21,14 +24,33 @@ public abstract class PlacesFactory {
 	private static final String COLUMN_KEYWORDS = "KEYWORDS";
 	private static final String COL_NAME_DELIMITER = "_";
 
-	public static List<Place> readFromCsv(InputStream stream) throws IOException {
+	public static List<Place> readFromCsv(InputStream dataStream, InputStream imgStream) throws IOException {
 		List<Place> places = new ArrayList<>();
+		//read image data
+		final List<List<String>> imagesCsv = CSVHelper.readDataFile(imgStream);
+		final HashMap<Integer, String> images = new HashMap<>();
+		for (List<String> row : imagesCsv) {
+			int idImage = -1;
+			int numCol = 0;
+			for (String v: row) {
+				if (numCol == 0){
+					idImage = Integer.parseInt(clearValue(v));
+					if (images.containsKey(idImage)) break;
+				}
+				if (numCol == 3){
+					images.put(idImage, v);
+				}
+				numCol++;
+			}
+		}
+
+		//read places info
 		int rownum = 0;
 		List<String> captions = new ArrayList<>();
 		HashMap<String, String> namesDict = new HashMap<>();
 		HashMap<String, String> abstDict = new HashMap<>();
 		HashMap<String, String> descDict = new HashMap<>();
-		final List<List<String>> data = CSVHelper.readDataFile(stream);
+		final List<List<String>> data = CSVHelper.readDataFile(dataStream);
 		for (List<String> row : data) {
 			if (rownum == 0) {
 				for (String s : row) {
@@ -58,9 +80,17 @@ public abstract class PlacesFactory {
 					else if (colName.startsWith(COLUMN_DESCRIPTION))
 						addDictValue(colName, descDict, cellValue);
 				}
-				place.setNames(Place.getCombinedString(namesDict));
-				place.setAbstracts(Place.getCombinedString(abstDict));
-				place.setDescriptions(Place.getCombinedString(descDict));
+				place.setNames(StringHelper.getCombinedString(namesDict));
+				place.setAbstracts(StringHelper.getCombinedString(abstDict));
+				place.setDescriptions(StringHelper.getCombinedString(descDict));
+				//set picture
+				if (images.containsKey(place.getId())){
+					String imgs = images.get(place.getId());
+					imgs = imgs.substring(2, imgs.length() - 2);
+					byte[] barr = Base64.decode(imgs, Base64.DEFAULT);
+					place.setImage(barr);
+				}
+				//
 				places.add(place);
 			}
 		}
@@ -106,9 +136,9 @@ public abstract class PlacesFactory {
 					else if (colName.startsWith(COLUMN_DESCRIPTION))
 						addDictValue(colName, descDict, cellValue);
 				}
-				place.setNames(Place.getCombinedString(namesDict));
-				place.setAbstracts(Place.getCombinedString(abstDict));
-				place.setDescriptions(Place.getCombinedString(descDict));
+				place.setNames(StringHelper.getCombinedString(namesDict));
+				place.setAbstracts(StringHelper.getCombinedString(abstDict));
+				place.setDescriptions(StringHelper.getCombinedString(descDict));
 				places.add(place);
 			}
 		}
