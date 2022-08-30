@@ -5,8 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.HashMap;
-
 @Entity(tableName = "places")
 public final class Place {
 	@NonNull
@@ -36,6 +34,19 @@ public final class Place {
 	@NonNull
 	@ColumnInfo(name = "description")
 	private String descriptions;
+
+	@NonNull
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(@NonNull byte[] image) {
+		this.image = image;
+	}
+
+	@NonNull
+	@ColumnInfo(name = "image")
+	private byte[] image;
 
 	public void setId(int id) {
 		this.id = id;
@@ -89,27 +100,6 @@ public final class Place {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	//TODO find a better way how to do not expose the two methods
-	public static String getCombinedString(HashMap<String, String> dict) {
-		if (dict == null) return "";
-		StringBuilder sb = new StringBuilder();
-		for (String key : dict.keySet()) {
-			sb.append(key).append("#").append(dict.get(key)).append("##");
-		}
-		return sb.toString();
-	}
-
-	public static HashMap<String, String> parseCombinedString(String combStr) {
-		HashMap<String, String> result = new HashMap<>();
-		String[] items = combStr.split("##");
-		for (String item : items) {
-			String[] tokens = item.split("#");
-			if (tokens.length != 2) continue;
-			result.put(tokens[0], tokens[1]);
-		}
-		return result;
 	}
 
 	@NonNull
